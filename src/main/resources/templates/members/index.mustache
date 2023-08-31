@@ -1,0 +1,21 @@
+{{>layouts/header}}
+<table class="table">
+    <h2>User List</h2>
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th colspan="col">Email</th>
+        <th scope="col">Name</th>
+    </tr>
+    </thead>
+    {{#memberList}}
+    <tbody>
+    <tr>
+        <th scope="row">{{id}}</th>
+        <td ><a href="/members/{{id}}">{{email}}</a></td>
+        <td>{{name}}</td>
+    </tr>
+    </tbody>
+    {{/memberList}}
+</table>
+{{>layouts/footer}}
