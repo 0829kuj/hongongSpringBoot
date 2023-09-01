@@ -28,9 +28,9 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public String join(MemberForm form) {
-        Member member = form.toEntity();
-        log.info(form.toString());
+    public String join(MemberForm dto) {
+        Member member = dto.toEntity();
+        log.info(dto.toString());
 
         Member saved = memberRepository.save(member);
         log.info(saved.toString());
@@ -53,19 +53,38 @@ public class MemberController {
     @GetMapping("/members")
     public String findAllId(Model m) {
         List<Member> memberEntityList = (List<Member>) memberRepository.findAll();
-//        List<Member> memberEntityList = memberRepository.findAll();
         m.addAttribute("memberList", memberEntityList);
         return "members/index";
     }
 
     @PostMapping("/login")
-    public String logIn(@RequestBody MemberForm form){
-        log.info(form.toString());
-        //
-        Optional<Member> member = memberRepository.findById(form.getId());
-        if (member.get().getPassword().equals(form.getPassword())){
+    public String logIn(@RequestBody MemberForm dto) {
+        log.info(dto.toString());
+        Optional<Member> member = memberRepository.findById(dto.getId());
+        if (member.get().getPassword().equals(dto.getPassword())) {
             return "redirect:/login";
         }
         return "articles/index";
+    }
+
+    @GetMapping("/members/{id}/edit")
+    public String edit(@PathVariable Long id, Model m) {
+        Member member = memberRepository.findById(id).orElse(null);
+        m.addAttribute("member", member);
+        return "/members/edit";
+    }
+
+    @PostMapping("/members/update")
+    public String edit(MemberForm dto) {
+        Member member = dto.toEntity();
+        log.info("member = "+member.toString());
+        // DB에서 기존데이터 검색
+        Member target = memberRepository.findById(member.getId()).orElse(null);
+        // 데이터 수정
+        if (target != null) {
+            memberRepository.save(member);
+        }
+        // 수정된 페이지로 리다이렉트
+        return "redirect:/members/" + member.getId();
     }
 }

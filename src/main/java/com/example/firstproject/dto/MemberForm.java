@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 @AllArgsConstructor
-@Getter
 @ToString
+@Getter
 public class MemberForm {
     private Long id;
     private String email;
@@ -15,6 +15,6 @@ public class MemberForm {
     private String name;
 
     public Member toEntity(){
-        return new Member(email, password, name);
+        return new Member(id, email, password, name);
     }
 }

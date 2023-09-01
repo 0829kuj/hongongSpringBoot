@@ -20,9 +20,4 @@ public class Article {
     @Column
     private String content;
 
-    public Article(String title, String content) {
-        this.title = title;
-        this.content = content;
-        System.out.println("title = " + title +" content = " + content);
-    }
 }
