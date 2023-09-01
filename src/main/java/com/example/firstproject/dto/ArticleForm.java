@@ -18,7 +18,6 @@ public class ArticleForm {
 
 //    이 부분 생성자말고 빌더패턴으로 변경하고싶은데 잘안돼서 그냥놔둠
     public Article toEntity(){
-        System.out.println("toEntity()에서 id" + id + "title = " + title +" content = " + content);
         return new Article(id, title, content);
     }
 //    public static Article create(ArticleForm dto){

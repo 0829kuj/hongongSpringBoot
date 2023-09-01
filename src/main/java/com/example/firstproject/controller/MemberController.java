@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -77,7 +78,7 @@ public class MemberController {
     @PostMapping("/members/update")
     public String edit(MemberForm dto) {
         Member member = dto.toEntity();
-        log.info("member = "+member.toString());
+        log.info("member = " + member.toString());
         // DB에서 기존데이터 검색
         Member target = memberRepository.findById(member.getId()).orElse(null);
         // 데이터 수정
@@ -86,5 +87,18 @@ public class MemberController {
         }
         // 수정된 페이지로 리다이렉트
         return "redirect:/members/" + member.getId();
+    }
+
+    @GetMapping("/members/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes rttr) {
+        // 1. DB에서 객체 가져오기
+        Member member = memberRepository.findById(id).orElse(null);
+        // 2. 삭제
+        if (member != null) {
+            memberRepository.delete(member);
+            rttr.addFlashAttribute("msg", "삭제완료되었습니다.");
+        }
+        // 3. 리다이렉트
+        return "redirect:/members";
     }
 }
