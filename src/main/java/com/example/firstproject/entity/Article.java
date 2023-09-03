@@ -19,4 +19,9 @@ public class Article {
     private String title;
     @Column
     private String content;
+
+    public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
