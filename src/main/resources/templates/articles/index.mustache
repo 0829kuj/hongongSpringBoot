@@ -1,21 +1,23 @@
 {{>layouts/header}}
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Id</th>
-        <th colspan="2">Title</th>
-        <th scope="col">Content</th>
-    </tr>
-    </thead>
-    {{#articleList}}
-        <tbody>
+<div class="p-5">
+    <table class="table">
+        <thead>
         <tr>
-            <th scope="row">{{id}}</th>
-            <td colspan="2"><a href="/articles/{{id}}">{{title}}</a></td>
-            <td>{{content}}</td>
+            <th scope="col">Id</th>
+            <th colspan="2">Title</th>
+            <th scope="col">Content</th>
         </tr>
-        </tbody>
-    {{/articleList}}
-    <a href="/articles/new">New Article</a>
-</table>
+        </thead>
+        {{#articleList}}
+            <tbody>
+            <tr>
+                <th scope="row">{{id}}</th>
+                <td colspan="2"><a href="/articles/{{id}}">{{title}}</a></td>
+                <td>{{content}}</td>
+            </tr>
+            </tbody>
+        {{/articleList}}
+        <a href="/articles/new">New Article</a>
+    </table>
+</div>
 {{>layouts/footer}}
