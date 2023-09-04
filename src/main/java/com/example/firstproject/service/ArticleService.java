@@ -16,7 +16,6 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
-
     public List<Article> index() {
         return articleRepository.findAll();
     }
@@ -51,5 +50,17 @@ public class ArticleService {
         log.info("article id: {}, article: {}", id, article.toString());
         Article updated = articleRepository.save(article.get());
         return updated;
+    }
+
+    public Article delete(Long id) {
+        // 1. DB에서 대상 Entity가 있는지 조회
+        Optional<Article> target = articleRepository.findById(id);
+        // 2. 대상 Entity가 없는 경우 처리
+        if (target.isEmpty()) {
+            return null;
+        }
+        // 3. Entity가 있을 경우 삭제 후 정상 응답(200) 반환
+        articleRepository.delete(target.get());
+        return target.get();
     }
 }
