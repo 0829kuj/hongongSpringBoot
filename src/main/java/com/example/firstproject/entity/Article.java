@@ -20,8 +20,13 @@ public class Article {
     @Column
     private String content;
 
-    public Article(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public void patch(Article article) {
+        // 수정할 내용이 없는 경우 null대신 기존의 Article객체가 가진 값으로 대체함 
+        if (article.title !=null){
+            this.title = article.title;    
+        }
+        if (article.content !=null){
+            this.content = article.content;
+        }
     }
 }
