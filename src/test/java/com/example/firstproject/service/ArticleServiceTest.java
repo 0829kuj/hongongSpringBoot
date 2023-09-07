@@ -47,12 +47,24 @@ class ArticleServiceTest {
         assertEquals(expected.toString(), article.toString());
     }
 
-//    @Test
-//    @Transactional
-//    void update() {
-//    }
-//
-//    @Test
-//    void delete() {
-//    }
+    @Test
+    @Transactional
+    void update() {
+        String title = "수정test";
+        ArticleForm dto = new ArticleForm(2L, title, (String) null);
+        Article expected = new Article(2L, title, "testtest");
+
+        // 실제 데이터
+        Article article = articleService.update(2L, dto);
+        // 비교 및 검증
+        assertEquals(expected.toString(), article.toString());
+    }
+
+    @Test
+    @Transactional
+    void delete() {
+        Article expected = new Article(2L, "test", "testtest");
+        Article article = articleService.delete(2L);
+        assertEquals(expected.toString(), article.toString());
+    }
 }
