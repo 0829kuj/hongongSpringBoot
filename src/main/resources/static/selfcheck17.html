@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello, <span id="target">World!</span></h1>
+    <input type="text" placeholder="스프링 부트" />
+    <button type="button">전송</button>
+  </body>
+  <script>
+    const h1 = document.querySelector("#target");
+    const btn = document.querySelector("button");
+    btn.addEventListener("click", function () {
+      const inputText = document.querySelector("input").value;
+      console.log("버튼 클릭!");
+      console.log(inputText);
+      if (inputText == "스프링 부트") {
+        h1.innerText = "스프링 부트!";
+      }
+    });
+  </script>
+</html>

@@ -1,16 +1,15 @@
 package com.example.firstproject.entity;
 
+import com.example.firstproject.dto.ArticleForm;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Entity
+@Builder
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // 자동생성. GenerationType.IDENTITY는 기본키 생성을 DB에 맞기는 전략.
@@ -28,5 +27,14 @@ public class Article {
         if (article.content !=null){
             this.content = article.content;
         }
+    }
+
+    // 일단 만들어는 놨는데 이걸 어떻게 효율적으로 사용할수있을지는 모르겠음
+    public static Article create(ArticleForm dto){
+        return Article.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .build();
     }
 }

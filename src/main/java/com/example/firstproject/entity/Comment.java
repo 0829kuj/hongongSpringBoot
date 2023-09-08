@@ -2,10 +2,7 @@ package com.example.firstproject.entity;
 
 import com.example.firstproject.dto.CommentDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
@@ -14,6 +11,7 @@ import java.util.Objects;
 @ToString
 @Getter
 @Entity
+@Builder
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +27,13 @@ public class Comment {
     private String body;        // 댓글 본문
 
     public static Comment createComment(CommentDto dto, Article article) {
+        System.out.println("dto.toString() = " + dto.toString());
         // 예외 발생
         if (dto.getId() != null) {
             throw new IllegalArgumentException("댓글 생성 실패! 댓글의 id가 없어야 합니다.");
         }
         if (!Objects.equals(dto.getArticle_id(), article.getId())) {
+            System.out.println("dto.getArticle_id() = " + dto.getArticle_id() + " article.getId() = " + article.getId());
             throw new IllegalArgumentException("댓글 생성 실패! 게시글의 id가 잘못되었습니다.");
         }
         // Entity생성 및 반환

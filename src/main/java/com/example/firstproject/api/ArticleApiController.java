@@ -18,7 +18,6 @@ public class ArticleApiController {
     private ArticleService articleService;
 
     // GET
-    // 원본
     @GetMapping("/api/articles")
     public List<Article> index() {
         return articleService.index();
